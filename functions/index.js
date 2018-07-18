@@ -195,8 +195,8 @@ exports.getmax = functions.database.ref('/publication/{challenge}/{publishtime}/
     const {challenge,publishtime,otherid} = event.params;
     const votenumber = event.data.val();
     if ( otherid !== 'totalnumber'){
-        if(votenumber === 50){
-            console.log(`vote 50 ${otherid}`)
+        if(votenumber === 1){
+            console.log(`vote 1 ${otherid}`)
             admin.database().ref('/publication/'+challenge+'/'+publishtime).once('value',function(data){
                 const uid = data.val().userid;
                 admin.database().ref('/users/'+uid).once('value',function(snapshot){
@@ -238,7 +238,8 @@ exports.levelup = functions.database.ref('/users/{uid}/level').onUpdate(event=>{
 exports.levelchange = functions.database.ref('users/{uid}/points').onUpdate(event=>{
     const {uid} = event.params;
     const points = event.data.val();
-    const pointarray = [{point:1000},{point:5000},{point:15000},{point:50000},{point:100000},{point:200000},{point:350000},{point:500000}];
+    const pointarray = [{point:500},{point:1000},{point:2500},{point:3500},{point:4500},{point:6500},{point:10000},{point:15000}];
+    // const pointarray = [{point:1000},{point:5000},{point:15000},{point:50000},{point:100000},{point:200000},{point:350000},{point:500000}];
     admin.database().ref('users/'+uid).once('value',function(snapshot){
         let level = snapshot.val().level;
         if(points>event.data.previous.val()){
