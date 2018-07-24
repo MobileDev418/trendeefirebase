@@ -238,7 +238,7 @@ exports.levelup = functions.database.ref('/users/{uid}/level').onUpdate(event=>{
 exports.levelchange = functions.database.ref('users/{uid}/points').onUpdate(event=>{
     const {uid} = event.params;
     const points = event.data.val();
-    const pointarray = [{point:500},{point:1000},{point:2500},{point:3500},{point:4500},{point:6500},{point:10000},{point:15000}];
+    const pointarray = [{point:500},{point:1000},{point:2500},{point:3500},{point:4500},{point:6500},{point:10000}];
     // const pointarray = [{point:1000},{point:5000},{point:15000},{point:50000},{point:100000},{point:200000},{point:350000},{point:500000}];
     admin.database().ref('users/'+uid).once('value',function(snapshot){
         let level = snapshot.val().level;
