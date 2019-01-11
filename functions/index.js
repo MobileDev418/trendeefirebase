@@ -191,7 +191,7 @@ exports.trendee_job = functions.pubsub.topic('trendee-tick').onPublish((event) =
         }
     }) 
 });
-exports.getmax = functions.database.ref('/publication/{challenge}/{publishtime}/{otherid}').onUpdate(event=>{
+exports.getmax = functions.database.ref('/publication/{challenge}/{publishtime}/{otherid}').onUpdate(event=>{       // user can vote only to one user
     const {challenge,publishtime,otherid} = event.params;
     const votenumber = event.data.val();
     if ( otherid !== 'totalnumber'){
