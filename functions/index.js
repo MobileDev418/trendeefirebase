@@ -254,5 +254,9 @@ exports.levelchange = functions.database.ref('users/{uid}/points').onUpdate(even
     })
 })
 exports.following = functions.database.ref('/follow/{uid}/following/{otherid}').onUpdate(event=>{
-
+    const {challenge,publishtime,otherid} = event.params;
+    const votenumber = event.data.val();
+    if ( otherid !== 'totalnumber'){
+        
+    }
 })
