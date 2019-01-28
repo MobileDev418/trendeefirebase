@@ -257,6 +257,19 @@ exports.following = functions.database.ref('/follow/{uid}/following/{otherid}').
     const {challenge,publishtime,otherid} = event.params;
     const votenumber = event.data.val();
     if ( otherid !== 'totalnumber'){
-        
+        if(votenumber === 1){
+            console.log(`vote 1 ${otherid}`)
+            admin.database().ref('/publication/'+challenge+'/'+publishtime).once('value',function(data){
+                const uid = data.val().userid;
+                admin.database().ref('/users/'+uid).once('value',function(snapshot){
+                    const nid = snapshot.val().devicetoken;
+                    admin.database().ref('/users/'+otherid).once('value',function(result){
+                        const text = result.val().nickname;
+                        console.log(`${text} love ${uid}`);
+                        admin.database().ref('/notification/'+uid+'/'+nid).child(Date.now()).set({type:'maxvote',text:text,id:otherid});
+                    })
+                })
+            })
+        }
     }
 })
