@@ -253,3 +253,6 @@ exports.levelchange = functions.database.ref('users/{uid}/points').onUpdate(even
         }
     })
 })
+exports.following = functions.database.ref('/follow/{uid}/following/{otherid}').onUpdate(event=>{
+
+})
