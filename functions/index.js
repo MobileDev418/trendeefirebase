@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-exports.addNotification = functions.database.ref('/notification/{uid}/{nid}/{ntime}').onCreate(event=>{
+exports.addNotification = functions.database.ref('/notification/{uid}/{nid}/{ntime}').onCreate(event=>{         //added notification
         const {uid,nid} = event.params;
         const text = event.data.child('text').val();
         const type = event.data.child('type').val();
@@ -36,7 +36,7 @@ exports.addNotification = functions.database.ref('/notification/{uid}/{nid}/{nti
                 }
             }
             console.log(`notification to ${uid}:${resulttext}`);
-            admin.database().ref('/users/'+uid+"/appbadge").child(nid).transaction(function(appbadge){
+            admin.database().ref('/users/'+uid+"/appbadge").child(nid).transaction(function(appbadge){  // listen badge item
                 return appbadge+1;
             }).then(()=>{
                 admin.database().ref('/users/'+uid+"/appbadge").child(nid).once('value',function(appbadge){
@@ -253,6 +253,7 @@ exports.levelchange = functions.database.ref('users/{uid}/points').onUpdate(even
         }
     })
 })
+<<<<<<< HEAD
 exports.following = functions.database.ref('/follow/{uid}/following/{otherid}').onUpdate(event=>{
     const {uid,otherid} = event.params;
     const votenumber = event.data.val();
@@ -273,3 +274,5 @@ exports.following = functions.database.ref('/follow/{uid}/following/{otherid}').
         }
     }
 })
+=======
+>>>>>>> 86f321ecf5135ebd59e516fbe9af69c9b4c4f3fa
